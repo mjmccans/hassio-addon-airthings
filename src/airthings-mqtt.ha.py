@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import logging, time, json, sys, os, toml
+import logging, time, json, sys, os, json
 import paho.mqtt.publish as publish
 from paho.mqtt import MQTTException
 from airthings import AirthingsWaveDetect
@@ -163,6 +163,19 @@ if __name__ == "__main__":
     _LOGGER.setLevel(logging.INFO)
 
     # Load configuration from file
+    # %%% DEBUG: New options are located at:
+    # /data/options.json
+    try:
+        with open('path_to_file/person.json') as f:
+            data = json.load(f)
+    except:
+        # Exit if there is an error reading config file
+        _LOGGER.exception("Error reading options.json file. Exiting.")
+    
+    print(data)
+
+    sys.exit(1)
+    
     try:
         CONFIG = toml.load(os.path.join(sys.path[0], "config.toml"))
     except:
