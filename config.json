@@ -9,10 +9,16 @@
     "host_network": "true",
     "services": ["mqtt:need"],
     "options": {
-        "mac": ""
+        "mac": "",
+        "devices": [
+          { "mac": "", "device_name": "" }
+        ]
       },
       "schema": {
-        "mac": "str"
+        "mac": "str",
+        "devices": [
+          { "mac": "str", "device_name": "str" }
+        ]
       },
       "image": "mjmccans/hassio-addon-airthings-{arch}"
   }
