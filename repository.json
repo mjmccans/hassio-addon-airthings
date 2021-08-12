@@ -1,5 +1,5 @@
 {
-    "name": "Hassio Addon Airthings",
+    "name": "Home Assistant Airthings Addon",
     "url": "https://github.com/mjmccans/hassio-addon-airthings",
     "maintainer": "Mark McCans"
   }
