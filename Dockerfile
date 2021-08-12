@@ -12,7 +12,7 @@ RUN apt-get update \
         build-essential \
         libglib2.0-0 \
         libglib2.0-dev \
-    && pip3 install --no-cache-dir paho-mqtt toml bluepy \
+    && pip3 install --no-cache-dir paho-mqtt bluepy \
     && apt-get remove -y \
         python3-pip \
         python3-setuptools \
@@ -31,6 +31,6 @@ COPY ./src/*.sh ./
 RUN chmod a+x ./run.sh
 
 
-#CMD [ "run.sh" ]
+CMD [ "./run.sh" ]
 #CMD [ "python3", "airthings-mqtt-ha.py" ]
-CMD ["/bin/bash", "-c", "sleep infinity"]
+#CMD ["/bin/bash", "-c", "sleep infinity"]

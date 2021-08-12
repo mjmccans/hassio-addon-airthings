@@ -10,19 +10,21 @@
     "services": ["mqtt:need"],
     "options": {
         "devices": [
-          { "mac": null, "device_name": null }
+          { "mac": null, "name": null }
         ],
         "refresh_interval": 150,
         "retry_count": 10,
-        "retry_wait": 3
+        "retry_wait": 3,
+        "log_level": "INFO"
       },
       "schema": {
         "devices": [
-          { "mac": "str", "device_name": "str" }
+          { "mac": "str", "name": "str" }
         ],
         "refresh_interval": "int",
         "retry_count": "int",
-        "retry_wait": "int"
+        "retry_wait": "int",
+        "log_level": "str"
       },
       "image": "mjmccans/hassio-addon-airthings-{arch}"
   }

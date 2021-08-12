@@ -2,10 +2,11 @@
     "devices": [
       {
         "mac": "58:93:D8:8B:12:7C",
-        "device_name": "Basement Office"
+        "name": "Basement Office"
       }
     ],
     "refresh_interval": 150,
     "retry_count": 10,
-    "retry_wait": 3
+    "retry_wait": 3,
+    "log_level": "INFO"
   }

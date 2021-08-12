@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import logging, time, json, sys, os, json
+import logging, time, json, sys, os, argparse
 import paho.mqtt.publish as publish
 from paho.mqtt import MQTTException
 from airthings import AirthingsWaveDetect
@@ -36,6 +36,17 @@ CONFIG_DEFAULTS = {
     "devices": [],
     "sensors": [],
     "mqtt": {"host": "localhost", "port": 1883}
+}
+
+# Sensor detail deafults (for MQTT discovery)
+SENSORS = {
+    "radon_1day_avg": {"name": "Radon (1 day avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive"},
+    "radon_longterm_avg": {"name": "Radon (longterm avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive"},
+    "co2": {"name": "CO2", "device_class": None, "unit_of_measurement": "ppm", "icon": "mdi:molecule-co2"},
+    "voc": {"name": "VOC", "device_class": None, "unit_of_measurement": "ppb", "icon": "mdi:cloud"},
+    "temperature": {"name": "Temperature", "device_class": "temperature", "unit_of_measurement": "°C", "icon": None},
+    "humidity": {"name": "Humidity", "device_class": "humidity", "unit_of_measurement": "%", "icon": None},
+    "rel_atm_pressure": {"name": "Pressure", "device_class": "pressure", "unit_of_measurement": "mbar", "icon": None}
 }
 
 class ATSensors:
@@ -162,27 +173,31 @@ if __name__ == "__main__":
     logging.basicConfig()
     _LOGGER.setLevel(logging.INFO)
 
+    # Parse command line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--host', type=str, required=True, help='mqtt server host name or ip address')
+    parser.add_argument('--port', type=int, default=1883, help='mqtt server host port')
+    parser.add_argument('--username', type=str, required=True, help='mqtt server username')
+    parser.add_argument('--password', type=str, required=True, help='mqtt server password')
+    parser.add_argument('--config', type=str, required=True, help='location of options.json file')
+    args = parser.parse_args()
+   
     # Load configuration from file
-    # %%% DEBUG: New options are located at:
-    # /data/options.json
     try:
-        with open('path_to_file/person.json') as f:
-            data = json.load(f)
+        with open(vars(args)['config']) as f:
+            CONFIG = json.load(f)
     except:
         # Exit if there is an error reading config file
         _LOGGER.exception("Error reading options.json file. Exiting.")
-    
-    print(data)
-
-    sys.exit(1)
-    
-    try:
-        CONFIG = toml.load(os.path.join(sys.path[0], "config.toml"))
-    except:
-        # Exit if there is an error reading config file
-        _LOGGER.exception("Error reading config.toml file. Exiting.")
         sys.exit(1)
     
+    # Fill in the remainder of the config values
+    CONFIG["mqtt"] = {}
+    CONFIG["mqtt"]["host"] = vars(args)['host']
+    CONFIG["mqtt"]["port"] = vars(args)['port']
+    CONFIG["mqtt"]["username"] = vars(args)['username']
+    CONFIG["mqtt"]["password"] = vars(args)['password']    
+
     # Fill in any missing configuration variable with defaults
     for key in CONFIG_DEFAULTS:
         if key not in CONFIG: CONFIG[key] = CONFIG_DEFAULTS[key]
@@ -224,19 +239,16 @@ if __name__ == "__main__":
                     if "model_nr" in DEVICES[mac]: device["model"] = DEVICES[mac]["model_nr"]
 
                     for name, val in data.items():
-                        if name != "date_time":
+                        if name != "date_time":                         
                             try:
                                 config = {}
                                 s = next((item for item in CONFIG["devices"] if item["mac"] == mac), None)
                                 if s != None:
-                                    if name in s:
-                                        config["name"] = s[name]["name"]
-                                        if "device_class" in s[name] and s[name]["device_class"] is not None:
-                                            config["device_class"] = s[name]["device_class"]
-                                        if "icon" in s[name] and s[name]["icon"] is not None:
-                                            config["icon"] = s[name]["icon"]
-                                        if "unit_of_measurement" in s[name] and s[name]["unit_of_measurement"] is not None:
-                                            config["unit_of_measurement"] = s[name]["unit_of_measurement"]
+                                    if name in SENSORS:
+                                        config["name"] = s["name"]+" "+SENSORS[name]["name"]
+                                        config["device_class"] = SENSORS[name]["device_class"]
+                                        config["icon"] = SENSORS[name]["icon"]
+                                        config["unit_of_measurement"] = SENSORS[name]["unit_of_measurement"]
                                         config["uniq_id"] = mac+"_"+name
                                         config["state_topic"] = "airthings/"+mac+"/"+name
                                         config["device"] = device
