@@ -20,6 +20,6 @@ jobs:
         uses: home-assistant/builder@master
         with:
           args: |
-            --amd64 \
+            --aarch64 \
             --target ./ \
             --docker-hub mjmccans
