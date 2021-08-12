@@ -30,14 +30,6 @@ _LOGGER = logging.getLogger("airthings-mqtt-ha")
 CONFIG = {}     # Variable to store configuration
 DEVICES = {}    # Variable to store devices
 
-# Default configuration values
-CONFIG_DEFAULTS = {
-    "general": {"refresh_interval": 150, "retry_count": 10, "retry_wait": 3, "log_level": "INFO"},
-    "devices": [],
-    "sensors": [],
-    "mqtt": {"host": "localhost", "port": 1883}
-}
-
 # Sensor detail deafults (for MQTT discovery)
 SENSORS = {
     "radon_1day_avg": {"name": "Radon (1 day avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive"},
@@ -90,18 +82,18 @@ class ATSensors:
 
     def get_device_info(self):
         _LOGGER.debug("Getting info about device(s)...")
-        for attempt in range(CONFIG["general"]["retry_count"]):
+        for attempt in range(CONFIG["retry_count"]):
             try:
                 devices_info = self.airthingsdetect.get_info()
             except:
-                _LOGGER.warning("Unexpected exception while getting device information on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["general"]["retry_wait"]))
-                time.sleep(CONFIG["general"]["retry_wait"])
+                _LOGGER.warning("Unexpected exception while getting device information on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["retry_wait"]))
+                time.sleep(CONFIG["retry_wait"])
             else:
                 # Success!
                 break
         else:
             # We failed all attempts
-            _LOGGER.exception("Failed to get info from devices after {} attempts.".format(CONFIG["general"]["retry_count"]))
+            _LOGGER.exception("Failed to get info from devices after {} attempts.".format(CONFIG["retry_count"]))
             return False
 
         # Collect device details
@@ -113,18 +105,18 @@ class ATSensors:
             DEVICES[mac]["device_name"] = dev.device_name
 
         _LOGGER.debug("Getting sensors...")
-        for attempt in range(CONFIG["general"]["retry_count"]):
+        for attempt in range(CONFIG["retry_count"]):
             try:
                 devices_sensors = self.airthingsdetect.get_sensors()
             except:
-                _LOGGER.warning("Unexpected exception while getting sensors information on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["general"]["retry_wait"]))
-                time.sleep(CONFIG["general"]["retry_wait"])
+                _LOGGER.warning("Unexpected exception while getting sensors information on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["retry_wait"]))
+                time.sleep(CONFIG["retry_wait"])
             else:
                 # Success!
                 break
         else:
             # We failed all attempts
-            _LOGGER.exception("Failed to get info from sensors after {} attempts.".format(CONFIG["general"]["retry_count"]))
+            _LOGGER.exception("Failed to get info from sensors after {} attempts.".format(CONFIG["retry_count"]))
             return False
 
         # Collect sensor details
@@ -137,19 +129,19 @@ class ATSensors:
     
     def get_sensor_data(self):
         _LOGGER.debug("Getting sensor data...")
-        for attempt in range(CONFIG["general"]["retry_count"]):
+        for attempt in range(CONFIG["retry_count"]):
             try:
                 sensordata = self.airthingsdetect.get_sensor_data()
                 return sensordata
             except:
-                _LOGGER.warning("Unexpected exception while getting sensor data on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["general"]["retry_wait"]))
-                time.sleep(CONFIG["general"]["retry_wait"])
+                _LOGGER.warning("Unexpected exception while getting sensor data on attempt {}. Retrying in {} seconds.".format(attempt+1, CONFIG["retry_wait"]))
+                time.sleep(CONFIG["retry_wait"])
             else:
                 # Success!
                 break
         else:
             # We failed all attempts
-            _LOGGER.exception("Failed to get sensor data after {} attempts.".format(CONFIG["general"]["retry_count"]))
+            _LOGGER.exception("Failed to get sensor data after {} attempts.".format(CONFIG["retry_count"]))
             return False
         
         return True
@@ -198,15 +190,9 @@ if __name__ == "__main__":
     CONFIG["mqtt"]["username"] = vars(args)['username']
     CONFIG["mqtt"]["password"] = vars(args)['password']    
 
-    # Fill in any missing configuration variable with defaults
-    for key in CONFIG_DEFAULTS:
-        if key not in CONFIG: CONFIG[key] = CONFIG_DEFAULTS[key]
-        for val in CONFIG_DEFAULTS[key]:
-            if val not in CONFIG[key]: CONFIG[key][val] = CONFIG_DEFAULTS[key][val]
-
     # Set logging level (defaults to INFO)
-    if CONFIG["general"]["log_level"] in ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]:
-        _LOGGER.setLevel(CONFIG["general"]["log_level"])
+    if CONFIG["log_level"] in ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]:
+        _LOGGER.setLevel(CONFIG["log_level"])
 
     # Pull out devices (if any) configured
     for d in CONFIG["devices"]:
@@ -226,7 +212,7 @@ if __name__ == "__main__":
             msgs = []
             
             # Send HA mqtt discovery messages to broker on first run
-            if first:
+            if first and CONFIG["mqtt_discovery"] != False:
                 _LOGGER.info("Sending HA mqtt discovery configuration messages...")
                 for mac, data in sensors.items():
                     
@@ -283,5 +269,5 @@ if __name__ == "__main__":
             _LOGGER.info("No sensor values collected.")
 
         # Wait for next refresh cycle
-        _LOGGER.info("Waiting {} seconds.".format(CONFIG["general"]["refresh_interval"]))
-        time.sleep(CONFIG["general"]["refresh_interval"])
+        _LOGGER.info("Waiting {} seconds.".format(CONFIG["refresh_interval"]))
+        time.sleep(CONFIG["refresh_interval"])

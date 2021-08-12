@@ -26,11 +26,8 @@ WORKDIR /src
 
 # Copy data for add-on
 COPY ./src/*.py ./
-COPY ./src/*.toml ./
 COPY ./src/*.sh ./
 RUN chmod a+x ./run.sh
 
-
 CMD [ "./run.sh" ]
-#CMD [ "python3", "airthings-mqtt-ha.py" ]
 #CMD ["/bin/bash", "-c", "sleep infinity"]

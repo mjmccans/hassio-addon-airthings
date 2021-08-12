@@ -15,7 +15,8 @@
         "refresh_interval": 150,
         "retry_count": 10,
         "retry_wait": 3,
-        "log_level": "INFO"
+        "log_level": "INFO",
+        "mqtt_discovery": "true"
       },
       "schema": {
         "devices": [
@@ -24,7 +25,8 @@
         "refresh_interval": "int",
         "retry_count": "int",
         "retry_wait": "int",
-        "log_level": "str"
+        "log_level": "str",
+        "mqtt_discovery": "bool"
       },
       "image": "mjmccans/hassio-addon-airthings-{arch}"
   }
