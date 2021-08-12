@@ -1,6 +1,6 @@
 {
     "name": "Airthings",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "slug": "airthings",
     "description": "Get values Airthings environment monitoring devices.",
     "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
