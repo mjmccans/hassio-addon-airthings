@@ -44,17 +44,6 @@ mac = "58:93:D8:8B:12:7C"
         unit_of_measurement = "mbar"
 
 
-# Configure your mqtt broker information. At a minimum you need to include host
-# (which can be an ip address or a name resolved through dns) and port. If
-# a username is set also set a password.
-
-[mqtt]
-host = "hass"
-port = 1883
-username = "NONE"
-password = "NONE"
-
-
 # General configuration for the airthings-mqtt-ha Python script.
 
 [general]

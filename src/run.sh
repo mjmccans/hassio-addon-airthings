@@ -11,10 +11,10 @@ echo "MQTT Host: $MQTT_HOST"
 echo "MQTT Username: $MQTT_USER"
 echo "MQTT Password: $MQTT_PASSWORD"
 
-echo "MAC: $(bashio::config 'mac')"
-
 # see example: https://github.com/home-assistant/addons/edit/master/dhcp_server/data/run.sh
 for device in $(bashio::config 'devices|keys'); do
-    BROADCAST=$(bashio::config "devices[${device}].mac")
-    GATEWAY=$(bashio::config "devices[${device}].device_name")
+    mac=$(bashio::config "devices[${device}].mac")
+    device_name=$(bashio::config "devices[${device}].device_name")
+    echo "MAC: $mac"
+    echo "Device Name: $device_name"
 done
