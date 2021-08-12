@@ -28,7 +28,7 @@ WORKDIR /src
 COPY ./src/*.py ./
 COPY ./src/*.toml ./
 COPY ./src/*.sh ./
-RUN chmod a+x /run.sh
+RUN chmod a+x ./run.sh
 
 
 #CMD [ "run.sh" ]
