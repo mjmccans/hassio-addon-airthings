@@ -22,4 +22,4 @@ jobs:
           args: |
             --amd64 \
             --target ./ \
-            --docker-hub hassio-addon-airthings-amd64
+            --docker-hub mjmccans
