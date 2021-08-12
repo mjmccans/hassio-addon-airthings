@@ -7,6 +7,7 @@
     "startup": "application",
     "boot": "auto",
     "host_network": "true",
+    "full_access": "true",
     "options": {
         "mac": ""
       },
