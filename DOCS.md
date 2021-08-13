@@ -5,13 +5,6 @@ __NOTE: This repository is under active development and should not be used at th
 This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This script includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can also turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
 
 
-## Screenshot
-
-The screenshot below shows an Airthings Wave Plus device as it appears in Home Assistant, including the sensors associated with the device.
-
-![Screenshot of Airthings Device in the Home Assistant ](screenshots/airthings_device.png)
-
-
 ## Requirements
 
 In order to use this add-on you need:
@@ -21,17 +14,6 @@ In order to use this add-on you need:
 * A Raspberry Pi 3/4 with built-in Bluetooth, a Bluetooth adapter that supports Bluetooth Low Energy (BLE) (such as [this one](https://www.amazon.com/Plugable-Bluetooth-Adapter-Compatible-Raspberry/dp/B009ZIILLI)).
 
 I am running this add-on on an Odroid-N2+ running HassOS with the above Plugable USB Bluetooth 4.0 Low Energy Micro Adapter and it is working quite well. 
-
-
-## Installation
-
-Please do the following to install this add-on:
-
-1. Go to the `Supervisor` tab in Home Assistant and go to the `Add-on Store`.
-1. Click on the three dots in the upper right-hand corner and select `Repositories`.
-1. Paste the url for this github page (`https://github.com/mjmccans/hassio-addon-airthings`) into the input field and click `Add`.
-1. A new section called `Home Assistant Airthings Addon` shuold appear in your `Add-on Store` and you can install the add-on from there like you would any other Home Assistant add-on.
-
 
 ## Configuration
 

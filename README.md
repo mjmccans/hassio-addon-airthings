@@ -9,7 +9,7 @@ This Home Assistant Add-on will read sensor values from [Airthings](https://www.
 
 The screenshot below shows an Airthings Wave Plus device as it appears in Home Assistant, including the sensors associated with the device.
 
-![Screenshot of Airthings Device in the Home Assistant ](screenshots/airthings_device.png)
+![Screenshot of Airthings Device in the Home Assistant ](./screenshots/airthings_device.png)
 
 
 ## Requirements
@@ -30,7 +30,7 @@ Please do the following to install this add-on:
 1. Go to the `Supervisor` tab in Home Assistant and go to the `Add-on Store`.
 1. Click on the three dots in the upper right-hand corner and select `Repositories`.
 1. Paste the url for this github page (`https://github.com/mjmccans/hassio-addon-airthings`) into the input field and click `Add`.
-1. A new section called `Home Assistant Airthings Addon` shuold appear in your `Add-on Store` and you can install the add-on from there like you would any other Home Assistant add-on.
+1. A new section called `Home Assistant Airthings Add-on` shuold appear in your `Add-on Store` and you can install the add-on from there like you would any other Home Assistant add-on.
 
 
 ## Configuration
