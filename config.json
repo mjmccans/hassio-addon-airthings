@@ -7,6 +7,9 @@
     "startup": "application",
     "boot": "auto",
     "host_network": "true",
+    "privileged": [
+      "NET_ADMIN"
+    ],
     "services": ["mqtt:need"],
     "options": {
         "devices": [
