@@ -1,15 +1,6 @@
 # Home Assistant Add-on: Airthings
 
-__NOTE: This repository is under active development and should not be used at this time.__
-
-This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This script includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can also turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
-
-
-## Screenshot
-
-The screenshot below shows an Airthings Wave Plus device as it appears in Home Assistant, including the sensors associated with the device.
-
-![Screenshot of Airthings Device in the Home Assistant](screenshots/airthings_device.png)
+This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This add-on includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can also turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
 
 
 ## Requirements
@@ -37,7 +28,17 @@ Please do the following to install this add-on:
 
 **Note**: _Remember to restart the add-on when the configuration is changed._
 
-Example add-on configuration, with all available options:
+
+### Scanning for Airthings Devices
+
+When you first load the add-on the configuration defaults to a blank devices mac address, and if no valid mac address is provided then the add-on will enter into a scanning mode. This will cause the add-on to search for Airthings devices,  output a recommended configuration and then exit.
+
+After starting the add-on, go to the `Log` tab and hit the `REFRESH` button until a recommended configuration is shown. Once shown, copy that configuration and paste it into the `Configuration` tab, and then edits the `name` for each device as appropriate. 
+
+
+### Example Configuration
+
+Example add-on configuration:
 
 ```yaml
 devices:
@@ -96,12 +97,15 @@ This option controls whether the Home Assistant's MQTT Discovery feature is enab
 
 ## Current Limitations
 
-* __Device discovery is currently not implemented because higher permissions are required to do Bluetooth scanning. For now that means that you need to have the mac address of your Airthings devices.__
 * This add-on has only been tested with a single Airthings Wave Plus device, but should work with multiple devices
 and with many other Airthings devices (although some testing and tweaks may be needed).
 * Only metric units are supported at this time, although it should be easy to add unit conversion if desired.
-* The Airthings devices must be connected to the official app at least once before you can use this script.
+* The Airthings devices must be connected to the official app at least once before you can use this add-on.
 * Point in time radon levels are not made available through Bluetooth LE so they cannot be accessed by this add-on, but you can regularly get the 1 day and long term average measurements.
+
+## Add-on Security Rating
+
+This add-on, as of the writing of this documentation, has been given am `Add-on Security Rating` of 3. This is due to the fact that in order to access the bluetooth adapter the add-on requires `Host Network` access and also requires the `NET_ADMIN` privilege in oder to allow scanning for devices. If you are uncomfortable with the add-on due to its security rating please review its source code, and please see below if you have any contributions or feedback.
 
 
 ## Inspiration
