@@ -9,7 +9,7 @@ This Home Assistant Add-on will read sensor values from [Airthings](https://www.
 
 The screenshot below shows an Airthings Wave Plus device as it appears in Home Assistant, including the sensors associated with the device.
 
-![Screenshot of Airthings Device in the Home Assistant ](./screenshots/airthings_device.png)
+![Screenshot of Airthings Device in the Home Assistant ](/screenshots/airthings_device.png)
 
 
 ## Requirements

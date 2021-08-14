@@ -48,11 +48,12 @@ class ATSensors:
     def __init__(self, scan_interval, devices=None):
         _LOGGER.info("Setting up Airthings sensors...")
         self.airthingsdetect = AirthingsWaveDetect(scan_interval, None)
+
         # Note: Doing this so multiple mac addresses can be sent in instead of just one.
         if devices is not None and devices != {}:
             self.airthingsdetect.airthing_devices = list(devices)
         else:
-            _LOGGER.info("No devices provided, so searching for sensors...")
+            _LOGGER.info("No devices provided, so searching for Airthings sensors...")
             self.find_devices()
         
         # Get info about the devices
@@ -65,17 +66,37 @@ class ATSensors:
 
     def find_devices(self):
         try:
-            _LOGGER.debug("Searching for Airthings sensors...")
+            _LOGGER.info("Starting search for Airthings sensors...")
             num_devices_found = self.airthingsdetect.find_devices()
-            _LOGGER.debug("Found {} airthings device(s)".format(num_devices_found))
+            _LOGGER.info("Found {} airthings device(s).".format(num_devices_found))
             if num_devices_found != 0:
-                # Put found devices into DEVICES variable
+                # Display suggested config file entry
+                print("")
+                print("\033[96m---------------------------------")
+                print("Suggested configuration is below:")
+                print("")
+                print("\033[92mdevices:")
                 for d in self.airthingsdetect.airthing_devices:
-                    DEVICES[d] = {}
+                    print("  - mac: "+d)
+                    print("    name: Insert Device Name")
+                print("refresh_interval: 150")
+                print("retry_count: 10")
+                print("retry_wait: 3")
+                print("log_level: INFO")
+                print("mqtt_discovery: 'true'")
+                print("")
+                print("\033[96m---------------------------------")
+                sys.exit(0)
+
+                # # Put found devices into DEVICES variable
+                # for d in self.airthingsdetect.airthing_devices:
+                #     DEVICES[d] = {}
             else:
                 # Exit if no devices found
                 _LOGGER.warning("No airthings devices found. Exiting.")
                 sys.exit(1)
+        except SystemExit as e:
+            sys.exit(e)
         except:
             _LOGGER.exception("Failed while searching for devices. Exiting.")
             sys.exit(1)
@@ -182,7 +203,7 @@ if __name__ == "__main__":
         # Exit if there is an error reading config file
         _LOGGER.exception("Error reading options.json file. Exiting.")
         sys.exit(1)
-    
+      
     # Fill in the remainder of the config values
     CONFIG["mqtt"] = {}
     CONFIG["mqtt"]["host"] = vars(args)['host']
@@ -195,8 +216,10 @@ if __name__ == "__main__":
         _LOGGER.setLevel(CONFIG["log_level"])
 
     # Pull out devices (if any) configured
-    for d in CONFIG["devices"]:
-        if "mac" in d: DEVICES[d["mac"]] = {}
+    # TODO: Consider adding verification that mac is valid.
+    if "devices" in CONFIG:
+        for d in CONFIG["devices"]:
+            if "mac" in d: DEVICES[d["mac"]] = {}
 
     a = ATSensors(180, DEVICES)
 

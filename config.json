@@ -14,7 +14,7 @@
     "services": ["mqtt:need"],
     "options": {
         "devices": [
-          { "mac": null, "name": null }
+          { "mac": "", "name": "" }
         ],
         "refresh_interval": 150,
         "retry_count": 10,
@@ -24,7 +24,7 @@
       },
       "schema": {
         "devices": [
-          { "mac": "str", "name": "str" }
+          { "mac": "str?", "name": "str?" }
         ],
         "refresh_interval": "int",
         "retry_count": "int",

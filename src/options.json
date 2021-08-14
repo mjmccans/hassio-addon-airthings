@@ -1,13 +1,13 @@
 {
-    "devices": [
-      {
-        "mac": "58:93:D8:8B:12:7C",
-        "name": "Basement Office"
-      }
-    ],
-    "refresh_interval": 150,
-    "retry_count": 10,
-    "retry_wait": 3,
-    "log_level": "INFO",
-    "mqtt_discovery": true
-  }
+  "devices": [
+    {
+      "mac": "58:93:D8:8B:12:7C",
+      "name": "Basement Office"
+    }
+  ],
+  "refresh_interval": 150,
+  "retry_count": 10,
+  "retry_wait": 3,
+  "log_level": "INFO",
+  "mqtt_discovery": true
+}
