@@ -203,7 +203,7 @@ if __name__ == "__main__":
         # Exit if there is an error reading config file
         _LOGGER.exception("Error reading options.json file. Exiting.")
         sys.exit(1)
-      
+
     # Fill in the remainder of the config values
     CONFIG["mqtt"] = {}
     CONFIG["mqtt"]["host"] = vars(args)['host']
@@ -219,7 +219,9 @@ if __name__ == "__main__":
     if "devices" in CONFIG:
         for d in CONFIG["devices"]:
             if "mac" in d:
-                if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", d["mac"].lower()):
+                if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", d["mac"].lower()):                    
+                    # Ensure consistent formatting for the mac address
+                    d["mac"] = d["mac"].lower()
                     DEVICES[d["mac"].lower()] = {}
                 else:
                     _LOGGER.warning("Invalid mac address provided: {}".format(d["mac"]))
@@ -231,7 +233,6 @@ if __name__ == "__main__":
     while True:
         # Get sensor data
         sensors = a.get_sensor_data()
-        
         # Only connect to mqtt broker if we have data
         if sensors is not None:
             # Variable to store mqtt messages
@@ -241,7 +242,9 @@ if __name__ == "__main__":
             if first and CONFIG["mqtt_discovery"] != False:
                 _LOGGER.info("Sending HA mqtt discovery configuration messages...")
                 for mac, data in sensors.items():
-                    
+                    # Consistent mac formatting
+                    mac = mac.lower()
+
                     # Create device details for this device
                     device = {}
                     device["connections"] = [["mac", mac]]
@@ -258,8 +261,8 @@ if __name__ == "__main__":
                                 if s != None:
                                     if name in SENSORS:
                                         config["name"] = s["name"]+" "+SENSORS[name]["name"]
-                                        config["device_class"] = SENSORS[name]["device_class"]
-                                        config["icon"] = SENSORS[name]["icon"]
+                                        if SENSORS[name]["device_class"] != None: config["device_class"] = SENSORS[name]["device_class"]
+                                        if SENSORS[name]["icon"] != None: config["icon"] = SENSORS[name]["icon"]
                                         config["unit_of_measurement"] = SENSORS[name]["unit_of_measurement"]
                                         config["uniq_id"] = mac+"_"+name
                                         config["state_topic"] = "airthings/"+mac+"/"+name
@@ -281,6 +284,8 @@ if __name__ == "__main__":
             for mac, data in sensors.items():
                 for name, val in data.items():
                     if name != "date_time":
+                        # Consistent mac formatting
+                        mac = mac.lower()
                         if isinstance(val, str) == False:
                             if name == "temperature":
                                 val = round(val,1)
