@@ -1,6 +1,6 @@
 # Home Assistant Add-on: Airthings
 
-This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This add-on includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can also turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
+This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This add-on includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
 
 
 ## Requirements
@@ -9,9 +9,9 @@ In order to use this add-on you need:
 
 * An Airthings Wave, Airthings Wave Plus or Airthings Wave Mini
 
-* A Raspberry Pi 3/4 with built-in Bluetooth, a Bluetooth adapter that supports Bluetooth Low Energy (BLE) (such as [this one](https://www.amazon.com/Plugable-Bluetooth-Adapter-Compatible-Raspberry/dp/B009ZIILLI)).
+* A Raspberry Pi 3/4 with built-in Bluetooth or a Bluetooth adapter that supports Bluetooth Low Energy (BLE) (such as [this one](https://www.amazon.com/Plugable-Bluetooth-Adapter-Compatible-Raspberry/dp/B009ZIILLI)).
 
-I am running this add-on on an Odroid-N2+ running HassOS with the above Plugable USB Bluetooth 4.0 Low Energy Micro Adapter and it is working quite well. 
+I has successfully run this add-on on an Raspberry Pi and an Odroid-N2+ running HassOS with the above Plugable USB Bluetooth 4.0 Low Energy Micro Adapter. 
 
 
 ## Installation
@@ -21,7 +21,7 @@ Please do the following to install this add-on:
 1. Go to the `Supervisor` tab in Home Assistant and go to the `Add-on Store`.
 1. Click on the three dots in the upper right-hand corner and select `Repositories`.
 1. Paste the url for this github page (`https://github.com/mjmccans/hassio-addon-airthings`) into the input field and click `Add`.
-1. A new section called `Home Assistant Airthings Add-on` shuold appear in your `Add-on Store` and you can install the add-on from there like you would any other Home Assistant add-on.
+1. A new section called `Home Assistant Airthings Add-on` should appear in your `Add-on Store` and you can install the add-on from there like you would any other Home Assistant add-on.
 
 
 ## Configuration
@@ -31,9 +31,9 @@ Please do the following to install this add-on:
 
 ### Scanning for Airthings Devices
 
-When you first load the add-on the configuration defaults to a blank devices mac address, and if no valid mac address is provided then the add-on will enter into a scanning mode. This will cause the add-on to search for Airthings devices,  output a recommended configuration and then exit.
+When you first load the add-on the configuration defaults to a blank mac address, and if no valid mac address is provided then the add-on will enter into a scanning mode. This will cause the add-on to search for Airthings devices,  output a recommended configuration and then exit.
 
-After starting the add-on, go to the `Log` tab and hit the `REFRESH` button until a recommended configuration is shown. Once shown, copy that configuration and paste it into the `Configuration` tab, and then edits the `name` for each device as appropriate. 
+After starting the add-on, go to the `Log` tab and hit the `REFRESH` button until a recommended configuration is shown. Once shown, copy that configuration into the `Configuration` tab, and then edit the `name` for each device as appropriate. 
 
 
 ### Example Configuration
@@ -56,7 +56,7 @@ mqtt_discovery: 'true'
 
 ### Option: `devices`
 
-The `devices` sets out your Airthings devices. For each device you set out its `mac` address and a `name`. The name is used for the mqtt discovery feature so your devices and their associated sensors are given human readable and unique names. Below is an example of two dvices being configured:
+The `devices` option sets out your Airthings devices. For each device you set out its `mac` address and a `name`. The `name` is used for the mqtt discovery feature so your devices and their associated sensors are given human readable and unique names. Below is an example of two devices being configured:
 
 ```yaml
 devices:
@@ -69,23 +69,22 @@ devices:
 
 ### Option: `refresh_interval`
 
-This option sets out how many seconds to wait before next refresh of the sensor data. Note that the sensors on the Airthings Wave + only update every 5 minutes, but the default has been set to half that to avoid delays in getting new sensor values.
+This option sets how many seconds to wait before next refresh of the sensor data. Note that the sensors on the Airthings Wave + only update every 5 minutes, but the default has been set to half that to avoid delays in getting new sensor values.
 
 
 ### Option: `retry_count`
 
-This option is the number of times to retry accessing your Airthings device when there is a bluetooth error or other issue before exiting. The default is 10, but you can increase this if you have reception or other issues.
+This option sets the number of times to retry accessing your Airthings devices when there is a bluetooth error or other issue before exiting. The default is 10, but you can increase this if you have reception or other issues.
 
 
 ### Option: `retry_wait`
 
-This option is the time, in seconds, to wait between the reties set out in `retry_count`.
+This option sets the time, in seconds, to wait between the retries set out in `retry_count`.
 
 
 ### Option: `log_level`
 
-The `log_level` option controls the level of log output by the add-on and can be changed to be more or less verbose, which might be useful when you are
-dealing with an unknown issue. Possible values are:
+The `log_level` option controls the level of log output by the add-on and can be changed to be more or less verbose, which might be useful when you are dealing with an unknown issue. Possible values are:
 
 `CRITICAL`, `ERROR`, `WARNING` or `INFO`
 
@@ -105,7 +104,7 @@ and with many other Airthings devices (although some testing and tweaks may be n
 
 ## Add-on Security Rating
 
-This add-on, as of the writing of this documentation, has been given am `Add-on Security Rating` of 3. This is due to the fact that in order to access the bluetooth adapter the add-on requires `Host Network` access and also requires the `NET_ADMIN` privilege in oder to allow scanning for devices. If you are uncomfortable with the add-on due to its security rating please review its source code, and please see below if you have any contributions or feedback.
+This add-on, as of the writing of this documentation, has been given am `Add-on Security Rating` of 3. This is due to the fact that in order to access the bluetooth adapter the add-on requires `Host Network` access and also requires the `NET_ADMIN` privilege in order to allow scanning for devices. If you are uncomfortable with the add-on due to its security rating please review its source code, and please see below if you have any contributions or feedback.
 
 
 ## Inspiration
