@@ -2,7 +2,7 @@
     "name": "Airthings",
     "version": "0.0.2",
     "slug": "airthings",
-    "description": "Read sensor values from Airthings Wave environmental monitoring devices locally through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker",
+    "description": "Read sensor values from Airthings Wave environmental monitoring devices",
     "url": "https://github.com/mjmccans/hassio-addon-airthings",
     "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
     "startup": "application",
