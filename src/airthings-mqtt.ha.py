@@ -72,10 +72,10 @@ class ATSensors:
             if num_devices_found != 0:
                 # Display suggested config file entry
                 print("")
-                print("\033[96m---------------------------------")
+                print("\033[36m---------------------------------")
                 print("Suggested configuration is below:")
                 print("")
-                print("\033[92mdevices:")
+                print("\033[32mdevices:")
                 for d in self.airthingsdetect.airthing_devices:
                     print("  - mac: "+d)
                     print("    name: Insert Device Name")
@@ -221,6 +221,8 @@ if __name__ == "__main__":
             if "mac" in d:
                 if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", d["mac"].lower()):
                     DEVICES[d["mac"]] = {}
+                else:
+                    _LOGGER.warning("Invalid mac address provided: {}".format(d["mac"]))
 
     a = ATSensors(180, DEVICES)
 
