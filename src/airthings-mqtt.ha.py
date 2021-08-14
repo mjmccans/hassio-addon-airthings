@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import logging, time, json, sys, os, argparse
+import logging, time, json, sys, os, argparse, re
 import paho.mqtt.publish as publish
 from paho.mqtt import MQTTException
 from airthings import AirthingsWaveDetect
@@ -215,11 +215,12 @@ if __name__ == "__main__":
     if CONFIG["log_level"] in ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]:
         _LOGGER.setLevel(CONFIG["log_level"])
 
-    # Pull out devices (if any) configured
-    # TODO: Consider adding verification that mac is valid.
+    # Pull out devices configured and insert them if a valid mac address has been provided
     if "devices" in CONFIG:
         for d in CONFIG["devices"]:
-            if "mac" in d: DEVICES[d["mac"]] = {}
+            if "mac" in d:
+                if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", d["mac"].lower()):
+                    DEVICES[d["mac"]] = {}
 
     a = ATSensors(180, DEVICES)
 
