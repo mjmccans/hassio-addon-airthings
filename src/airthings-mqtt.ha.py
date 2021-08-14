@@ -74,7 +74,7 @@ class ATSensors:
                 print("")
                 print("\033[36m---------------------------------")
                 print("Suggested configuration is below:")
-                print("")
+                print(" ")
                 print("\033[32mdevices:")
                 for d in self.airthingsdetect.airthing_devices:
                     print("  - mac: "+d)
@@ -84,8 +84,8 @@ class ATSensors:
                 print("retry_wait: 3")
                 print("log_level: INFO")
                 print("mqtt_discovery: 'true'")
-                print("")
-                print("\033[96m---------------------------------")
+                print(" ")
+                print("\033[96m---------------------------------\033[0m")
                 sys.exit(0)
 
                 # # Put found devices into DEVICES variable
