@@ -220,7 +220,7 @@ if __name__ == "__main__":
         for d in CONFIG["devices"]:
             if "mac" in d:
                 if re.match("[0-9a-f]{2}([-:]?)[0-9a-f]{2}(\\1[0-9a-f]{2}){4}$", d["mac"].lower()):
-                    DEVICES[d["mac"]] = {}
+                    DEVICES[d["mac"].lower()] = {}
                 else:
                     _LOGGER.warning("Invalid mac address provided: {}".format(d["mac"]))
 
