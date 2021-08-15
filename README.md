@@ -86,7 +86,7 @@ This option sets the time, in seconds, to wait between the retries set out in `r
 
 The `log_level` option controls the level of log output by the add-on and can be changed to be more or less verbose, which might be useful when you are dealing with an unknown issue. Possible values are:
 
-`CRITICAL`, `ERROR`, `WARNING` or `INFO`
+`CRITICAL`, `ERROR`, `WARNING`, `INFO` or `DEBUG`
 
 
 ### Option: `mqtt_discovery`
