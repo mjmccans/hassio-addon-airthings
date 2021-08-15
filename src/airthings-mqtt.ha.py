@@ -98,7 +98,7 @@ class ATSensors:
         except SystemExit as e:
             sys.exit(e)
         except:
-            _LOGGER.exception("Failed while searching for devices. Exiting.")
+            _LOGGER.exception("Failed while searching for devices. Is a bluetooth adapter available? Exiting.")
             sys.exit(1)
 
     def get_device_info(self):
@@ -233,8 +233,8 @@ if __name__ == "__main__":
     while True:
         # Get sensor data
         sensors = a.get_sensor_data()
-        # Only connect to mqtt broker if we have data
-        if sensors is not None:
+        # Only connect to mqtt broker if we have data  
+        if sensors is not None and sensors is not {}:
             # Variable to store mqtt messages
             msgs = []
             
@@ -297,7 +297,7 @@ if __name__ == "__main__":
             # Publish the sensor data to mqtt broker
             mqtt_publish(msgs)
         else:
-            _LOGGER.info("No sensor values collected.")
+            _LOGGER.error("No sensor values collected. Please check your configuration and make sure your bluetooth adapter is available.")
 
         # Wait for next refresh cycle
         _LOGGER.info("Waiting {} seconds.".format(CONFIG["refresh_interval"]))
