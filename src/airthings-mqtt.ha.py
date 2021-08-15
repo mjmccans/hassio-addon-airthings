@@ -234,7 +234,7 @@ if __name__ == "__main__":
         # Get sensor data
         sensors = a.get_sensor_data()
         # Only connect to mqtt broker if we have data  
-        if sensors is not None and sensors is not {}:
+        if sensors is not None and sensors != {}:
             # Variable to store mqtt messages
             msgs = []
             
