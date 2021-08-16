@@ -3,6 +3,13 @@
 This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This add-on includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
 
 
+## Screenshot
+
+The screenshot below shows an Airthings Wave Plus device as it appears in Home Assistant, including the sensors associated with the device.
+
+![Screenshot of Airthings Device in the Home Assistant ](https://raw.githubusercontent.com/mjmccans/hassio-addon-airthings/main/screenshots/airthings_device.png)
+
+
 ## Requirements
 
 In order to use this add-on you need:
