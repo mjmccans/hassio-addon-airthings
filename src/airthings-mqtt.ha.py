@@ -298,6 +298,7 @@ if __name__ == "__main__":
             mqtt_publish(msgs)
         else:
             _LOGGER.error("No sensor values collected. Please check your configuration and make sure your bluetooth adapter is available.")
+            sys.exit(1)
 
         # Wait for next refresh cycle
         _LOGGER.info("Waiting {} seconds.".format(CONFIG["refresh_interval"]))
