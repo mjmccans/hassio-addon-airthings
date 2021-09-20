@@ -1,6 +1,6 @@
 {
     "name": "Airthings",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "slug": "airthings",
     "description": "Read sensor values from Airthings Wave environmental monitoring devices",
     "url": "https://github.com/mjmccans/hassio-addon-airthings",
