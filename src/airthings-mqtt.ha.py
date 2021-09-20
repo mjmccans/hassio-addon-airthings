@@ -59,7 +59,7 @@ class ATSensors:
         # Get info about the devices
         if not self.get_device_info():
             # Exit if setup fails
-            _LOGGER.error("\033[31mFailed to set up Airthings sensors. This addon should restart and try again.\033[0m")
+            _LOGGER.error("\033[31mFailed to set up Airthings sensors. If the watchdog option is enabled, this addon will restart and try again.\033[0m")
             sys.exit(1)
 
         _LOGGER.info("Done Airthings setup.")
@@ -93,12 +93,12 @@ class ATSensors:
                 #     DEVICES[d] = {}
             else:
                 # Exit if no devices found
-                _LOGGER.warning("\033[31mNo airthings devices found. This addon should restart and try again.\033[0m")
+                _LOGGER.warning("\033[31mNo airthings devices found. If the watchdog option is enabled, this addon will restart and try again.\033[0m")
                 sys.exit(1)
         except SystemExit as e:
             sys.exit(e)
         except:
-            _LOGGER.exception("\033[31mFailed while searching for devices. Is a bluetooth adapter available? This addon should restart and try again.\033[0m")
+            _LOGGER.exception("\033[31mFailed while searching for devices. Is a bluetooth adapter available? If the watchdog option is enabled, this addon will restart and try again.\033[0m")
             sys.exit(1)
 
     def get_device_info(self):
@@ -201,7 +201,7 @@ if __name__ == "__main__":
             CONFIG = json.load(f)
     except:
         # Exit if there is an error reading config file
-        _LOGGER.exception("\033[31mError reading options.json file. This addon should restart and try again.\033[0m")
+        _LOGGER.exception("\033[31mError reading options.json file. If the watchdog option is enabled, this addon will restart and try again.\033[0m")
         sys.exit(1)
 
     # Fill in the remainder of the config values
@@ -297,7 +297,7 @@ if __name__ == "__main__":
             # Publish the sensor data to mqtt broker
             mqtt_publish(msgs)
         else:
-            _LOGGER.error("\033[31mNo sensor values collected. Please check your configuration and make sure your bluetooth adapter is available. This addon should restart and try again.\033[0m")
+            _LOGGER.error("\033[31mNo sensor values collected. Please check your configuration and make sure your bluetooth adapter is available. If the watchdog option is enabled, this addon will restart and try again.\033[0m")
             sys.exit(1)
 
         # Wait for next refresh cycle
