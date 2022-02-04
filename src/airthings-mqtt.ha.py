@@ -194,7 +194,7 @@ if __name__ == "__main__":
     parser.add_argument('--password', type=str, required=True, help='mqtt server password')
     parser.add_argument('--config', type=str, required=True, help='location of options.json file')
     args = parser.parse_args()
-   
+    
     # Load configuration from file
     try:
         with open(vars(args)['config']) as f:
