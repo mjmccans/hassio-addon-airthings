@@ -1,6 +1,6 @@
 ## [0.0.4] - 2022-02-04
 ### New
-* Add support for long-term Statistics.
+* Add support for long-term statistics.
 
 ### Fixes
 * Updated logging format to show date and time.
