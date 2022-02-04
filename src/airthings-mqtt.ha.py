@@ -32,13 +32,13 @@ DEVICES = {}    # Variable to store devices
 
 # Sensor detail deafults (for MQTT discovery)
 SENSORS = {
-    "radon_1day_avg": {"name": "Radon (1 day avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive"},
-    "radon_longterm_avg": {"name": "Radon (longterm avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive"},
-    "co2": {"name": "CO2", "device_class": None, "unit_of_measurement": "ppm", "icon": "mdi:molecule-co2"},
-    "voc": {"name": "VOC", "device_class": None, "unit_of_measurement": "ppb", "icon": "mdi:cloud"},
-    "temperature": {"name": "Temperature", "device_class": "temperature", "unit_of_measurement": "°C", "icon": None},
-    "humidity": {"name": "Humidity", "device_class": "humidity", "unit_of_measurement": "%", "icon": None},
-    "rel_atm_pressure": {"name": "Pressure", "device_class": "pressure", "unit_of_measurement": "mbar", "icon": None}
+    "radon_1day_avg": {"name": "Radon (1 day avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive", "state_class": "measurement"},
+    "radon_longterm_avg": {"name": "Radon (longterm avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive", "state_class": "measurement"},
+    "co2": {"name": "CO2", "device_class": "carbon_dioxide", "unit_of_measurement": "ppm", "icon": "mdi:molecule-co2", "state_class": "measurement"},
+    "voc": {"name": "VOC", "device_class": None, "unit_of_measurement": "ppb", "icon": "mdi:cloud", "state_class": "measurement"},
+    "temperature": {"name": "Temperature", "device_class": "temperature", "unit_of_measurement": "°C", "icon": None, "state_class": "measurement"},
+    "humidity": {"name": "Humidity", "device_class": "humidity", "unit_of_measurement": "%", "icon": None, "state_class": "measurement"},
+    "rel_atm_pressure": {"name": "Pressure", "device_class": "pressure", "unit_of_measurement": "mbar", "icon": None, "state_class": "measurement"}
 }
 
 class ATSensors:
@@ -183,7 +183,7 @@ def mqtt_publish(msgs):
         _LOGGER.exception("Unexpected exception while sending messages to mqtt broker.")
 
 if __name__ == "__main__":
-    logging.basicConfig()
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', datefmt='[%Y-%m-%d %H:%M:%S]')
     _LOGGER.setLevel(logging.INFO)
 
     # Parse command line arguments
@@ -263,6 +263,7 @@ if __name__ == "__main__":
                                         config["name"] = s["name"]+" "+SENSORS[name]["name"]
                                         if SENSORS[name]["device_class"] != None: config["device_class"] = SENSORS[name]["device_class"]
                                         if SENSORS[name]["icon"] != None: config["icon"] = SENSORS[name]["icon"]
+                                        if SENSORS[name]["state_class"] != None: config["state_class"] = SENSORS[name]["state_class"]
                                         config["unit_of_measurement"] = SENSORS[name]["unit_of_measurement"]
                                         config["uniq_id"] = mac+"_"+name
                                         config["state_topic"] = "airthings/"+mac+"/"+name
