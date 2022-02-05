@@ -204,6 +204,7 @@ class AirthingsWaveDetect:
             tries += 1
             try:
                 self._dev = btle.Peripheral(mac.lower())
+                break
             except Exception as e:
                 # print(e)
                 if tries == retries:
@@ -256,7 +257,7 @@ class AirthingsWaveDetect:
         return self.sensors
 
     def get_sensor_data(self):
-        if time.monotonic() - self.last_scan > self.scan_interval:
+        if time.monotonic() - self.last_scan > self.scan_interval or self.last_scan == -1:
             self.last_scan = time.monotonic()
             for mac, characteristics in self.sensors.items():
                 self.connect(mac)
