@@ -1,4 +1,4 @@
-name: "Home Assistant Builder Test"
+name: "[TEST] Home Assistant Builder"
 
 on:
   # Allows you to run this workflow manually from the Actions tab

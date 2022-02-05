@@ -1,4 +1,4 @@
-name: "Home Assistant Builder Publish (all)"
+name: "[MAIN] (ALL) Home Assistant Builder Publish"
 
 on:
   # Allows you to run this workflow manually from the Actions tab
