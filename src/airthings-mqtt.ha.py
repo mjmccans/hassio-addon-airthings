@@ -38,7 +38,9 @@ SENSORS = {
     "voc": {"name": "VOC", "device_class": None, "unit_of_measurement": "ppb", "icon": "mdi:cloud", "state_class": "measurement"},
     "temperature": {"name": "Temperature", "device_class": "temperature", "unit_of_measurement": "°C", "icon": None, "state_class": "measurement"},
     "humidity": {"name": "Humidity", "device_class": "humidity", "unit_of_measurement": "%", "icon": None, "state_class": "measurement"},
-    "rel_atm_pressure": {"name": "Pressure", "device_class": "pressure", "unit_of_measurement": "mbar", "icon": None, "state_class": "measurement"}
+    "rel_atm_pressure": {"name": "Pressure", "device_class": "pressure", "unit_of_measurement": "mbar", "icon": None, "state_class": "measurement"},
+    "illuminance": {"name": "Illuminance", "device_class": "illuminance", "unit_of_measurement": "lx", "icon": None, "state_class": "measurement"},
+    "battery": {"name": "Battery", "device_class": "battery", "unit_of_measurement": "%", "icon": None, "state_class": "measurement"}
 }
 
 class ATSensors:
@@ -288,8 +290,11 @@ if __name__ == "__main__":
                         # Consistent mac formatting
                         mac = mac.lower()
                         if isinstance(val, str) == False:
+                            # Edit or format sensor data as needed
                             if name == "temperature":
                                 val = round(val,1)
+                            elif name == "battery":
+                                val = max(0, min(100, round( (val-2.4)/(3.2-2.4)*100 ))) # Voltage is between 2.4 and 3.2
                             else:
                                 val = round(val)
                         _LOGGER.info("{} = {}".format("airthings/"+mac+"/"+name, val))

@@ -1,9 +1,15 @@
+## [1.0.0] - 2022-02-13
+### New
+* Support for battery and illuminance sensors for Airthings Wave+ devices pulled from upstream.
+
+
 ## [0.0.4] - 2022-02-04
 ### New
 * Add support for long-term statistics.
 
 ### Fixes
 * Updated logging format to show date and time.
+
 
 ## [0.0.3] - 2021-09-19
 ### Fixes
