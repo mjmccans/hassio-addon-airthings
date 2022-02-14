@@ -23,6 +23,8 @@ I has successfully run this add-on on an Raspberry Pi and an Odroid-N2+ running 
 
 ## Installation
 
+[![Open your Home Assistant instance and show the add add-on repository dialog with this repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fmjmccans%2Fhassio-addon-airthings)
+
 Please do the following to install this add-on:
 
 1. Go to the `Supervisor` tab in Home Assistant and go to the `Add-on Store`.
