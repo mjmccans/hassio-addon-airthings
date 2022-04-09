@@ -1,3 +1,8 @@
+## [1.0.1] - 2022-04-08
+### Fixes
+* Updated documentation and added check for Mosquitto MQTT broker addon requirement.
+
+
 ## [1.0.0] - 2022-02-13
 ### New
 * Support for battery and illuminance sensors for Airthings Wave+ devices pulled from upstream.

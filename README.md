@@ -14,6 +14,8 @@ The screenshot below shows an Airthings Wave Plus device as it appears in Home A
 
 In order to use this add-on you need:
 
+* The [Mosquitto Broker Add-on](https://github.com/home-assistant/addons/tree/master/mosquitto) installed
+
 * An Airthings Wave, Airthings Wave Plus or Airthings Wave Mini
 
 * A Raspberry Pi 3/4 with built-in Bluetooth or a Bluetooth adapter that supports Bluetooth Low Energy (BLE) (such as [this one](https://www.amazon.com/Plugable-Bluetooth-Adapter-Compatible-Raspberry/dp/B009ZIILLI)).
