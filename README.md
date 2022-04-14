@@ -105,6 +105,11 @@ The `log_level` option controls the level of log output by the add-on and can be
 This option controls whether the Home Assistant's MQTT Discovery feature is enabled or disabled. If disabled, you can configure the sensors individually and they will be located at mqtt topic `/airthings/<mac>/<sensor name>` where <mac> is the `mac` address you set for your device and `sensor name` is the name of the sensor from the device. For example, the sensor names for the Airthings Wave Plus are: `humidity`, `radon_1day_avg`, `radon_longterm_avg`, `temperature`, `rel_atm_pressure`, `co2` and `voc`.
 
 
+### Option: `retain`
+
+This option sets the "retain" flag for the sensor values sent to the MQTT broker. This means that the last sensor value will be retained by the MQTT broker, meaning that if you restart Home Assistant the last sensor values sent to the MQTT broker will show up immediately once Home Assistant restarts. The downside is that the sensor values may be out of date, particularly if the add-on has stopped. If you change this value to "false" the add-on will clear any existing retained values.
+
+
 ## Current Limitations
 
 * This add-on has only been tested with a single Airthings Wave Plus device, but should work with multiple devices

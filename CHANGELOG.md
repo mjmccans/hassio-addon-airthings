@@ -1,3 +1,7 @@
+## [1.0.2] - 2022-02-13
+### New
+* New configuration option to retain your sensor values in the MQTT broker.
+
 ## [1.0.1] - 2022-04-08
 ### Fixes
 * Updated documentation and added check for Mosquitto MQTT broker addon requirement.

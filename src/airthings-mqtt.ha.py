@@ -30,7 +30,7 @@ _LOGGER = logging.getLogger("airthings-mqtt-ha")
 CONFIG = {}     # Variable to store configuration
 DEVICES = {}    # Variable to store devices
 
-# Sensor detail deafults (for MQTT discovery)
+# Sensor detail defaults (for MQTT discovery)
 SENSORS = {
     "radon_1day_avg": {"name": "Radon (1 day avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive", "state_class": "measurement"},
     "radon_longterm_avg": {"name": "Radon (longterm avg.)", "device_class": None, "unit_of_measurement": "Bq/m3", "icon": "mdi:radioactive", "state_class": "measurement"},
@@ -211,7 +211,7 @@ if __name__ == "__main__":
     CONFIG["mqtt"]["host"] = vars(args)['host']
     CONFIG["mqtt"]["port"] = vars(args)['port']
     CONFIG["mqtt"]["username"] = vars(args)['username']
-    CONFIG["mqtt"]["password"] = vars(args)['password']    
+    CONFIG["mqtt"]["password"] = vars(args)['password']
 
     # Set logging level (defaults to INFO)
     if CONFIG["log_level"] in ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]:
@@ -280,7 +280,6 @@ if __name__ == "__main__":
                 _LOGGER.info("Done sending HA mqtt discovery configuration messages.")
                 msgs = []
                 time.sleep(5)
-                first = False
             
             # Collect all of the sensor data
             _LOGGER.info("Collecting sensor value messages...")
@@ -298,10 +297,17 @@ if __name__ == "__main__":
                             else:
                                 val = round(val)
                         _LOGGER.info("{} = {}".format("airthings/"+mac+"/"+name, val))
-                        msgs.append({'topic': "airthings/"+mac+"/"+name, 'payload': val})
+                        
+                        # If this is a first run, clear any retained messages if "retained" is not set in config.
+                        if first and not CONFIG["retain"]:
+                            _LOGGER.debug("Appending message to delete any existing retained message...")
+                            msgs.append({'topic': "airthings/"+mac+"/"+name, 'payload': '', 'retain': True})
+                        
+                        msgs.append({'topic': "airthings/"+mac+"/"+name, 'payload': val, 'retain': CONFIG["retain"]})
             
             # Publish the sensor data to mqtt broker
             mqtt_publish(msgs)
+            first = False
         else:
             _LOGGER.error("\033[31mNo sensor values collected. Please check your configuration and make sure your bluetooth adapter is available. If the watchdog option is enabled, this addon will restart and try again.\033[0m")
             sys.exit(1)
