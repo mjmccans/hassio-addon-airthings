@@ -29,5 +29,4 @@ COPY ./src/*.py ./
 COPY ./src/*.sh ./
 RUN chmod a+x ./run.sh
 
-CMD [ "./run.sh" ]
-#CMD ["/bin/bash", "-c", "sleep infinity"]
+ENTRYPOINT [ "./run.sh" ]
