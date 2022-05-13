@@ -110,6 +110,26 @@ This option controls whether the Home Assistant's MQTT Discovery feature is enab
 This option sets the "retain" flag for the sensor values sent to the MQTT broker. This means that the last sensor value will be retained by the MQTT broker, meaning that if you restart Home Assistant the last sensor values sent to the MQTT broker will show up immediately once Home Assistant restarts. The downside is that the sensor values may be out of date, particularly if the add-on has stopped. If you change this value to "false" the add-on will clear any existing retained values.
 
 
+### Option: `mqtt_host` (optional)
+
+This option sets out the hostname of your mqtt broker. If this option is not set the internal Home Assistant MQTT broker is automatically used.
+
+
+### Option: `mqtt_port` (optional)
+
+This option sets out the port of your mqtt broker. If this option is not set the internal Home Assistant MQTT broker is automatically used.
+
+
+### Option: `mqtt_username` (optional)
+
+This option sets out the username to use to access your mqtt broker. If this option is not set the internal Home Assistant MQTT broker is automatically used.
+
+
+### Option: `mqtt_password` (optional)
+
+This option sets out the password to use to access your mqtt broker. If this option is not set the internal Home Assistant MQTT broker is automatically used.
+
+
 ## Current Limitations
 
 * This add-on has only been tested with a single Airthings Wave Plus device, but should work with multiple devices
