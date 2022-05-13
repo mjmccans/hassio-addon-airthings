@@ -1,5 +1,5 @@
 name: Airthings
-version: 1.1.0
+version: 1.0.2
 slug: airthings
 description: Read sensor values from Airthings Wave environmental monitoring devices
 url: https://github.com/mjmccans/hassio-addon-airthings
@@ -24,8 +24,8 @@ options:
   retry_count: 10
   retry_wait: 3
   log_level: INFO
-  mqtt_discovery: true
-  retain: false
+  mqtt_discovery: "true"
+  retain: "false"
 schema:
   devices:
     - mac: str?
@@ -33,11 +33,7 @@ schema:
   refresh_interval: int
   retry_count: int
   retry_wait: int
-  log_level: list(CRITICAL|ERROR|WARNING|INFO|DEBUG)
+  log_level: str
   mqtt_discovery: bool
   retain: bool?
-  mqtt_host: str?
-  mqtt_port: int?
-  mqtt_username: str?
-  mqtt_password: str?
 image: mjmccans/hassio-addon-airthings-{arch}
