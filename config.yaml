@@ -1,5 +1,5 @@
 name: Airthings
-version: 1.1.0
+version: 1.2.0
 slug: airthings
 description: Read sensor values from Airthings Wave environmental monitoring devices
 url: https://github.com/mjmccans/hassio-addon-airthings
@@ -11,9 +11,7 @@ arch:
   - i386
 startup: application
 boot: auto
-host_network: "true"
-privileged:
-  - NET_ADMIN
+host_dbus: "true"
 services:
   - mqtt:need
 options:
@@ -40,4 +38,4 @@ schema:
   mqtt_port: int?
   mqtt_username: str?
   mqtt_password: str?
-image: mjmccans/hassio-addon-airthings-{arch}
+# image: mjmccans/hassio-addon-airthings-{arch}
