@@ -1,3 +1,10 @@
+## [1.2.0] - 2022-07-08
+### NEW
+* Firmware version displayed on device details page.
+
+### Fixes
+* Changed backend from bluepy to bleak, a more modern bluetooth library.
+
 ## [1.1.0] - 2022-05-13
 ### NEW
 * Optional configuration of external mqtt broker.
