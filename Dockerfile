@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 ENV LANG C.UTF-8
 
 # Install packages
-RUN apk add --no-cache dbus bluez
+RUN apk add --no-cache bluez
 RUN pip3 install --no-cache-dir paho-mqtt bleak
 
 # set the working directory in the container
