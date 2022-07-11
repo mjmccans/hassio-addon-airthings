@@ -38,4 +38,4 @@ schema:
   mqtt_port: int?
   mqtt_username: str?
   mqtt_password: str?
-# image: mjmccans/hassio-addon-airthings-{arch}
+image: mjmccans/hassio-addon-airthings-{arch}
