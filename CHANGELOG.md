@@ -1,9 +1,11 @@
-## [1.2.0] - 2022-07-08
+## [1.2.0] - 2022-07-12
 ### NEW
 * Firmware version displayed on device details page.
 
 ### Fixes
-* Changed backend from bluepy to bleak, a more modern bluetooth library.
+* Changed bluetooth library from bluepy to bleak, a more modern bluetooth library. This change has material
+benefits because bleak communicates with the bluetooth adapter via the hosts' dbus service, meaning that
+the addon no longer requires host networking and other higher permission (thus increasing the security rating from 3 to 5).
 
 ## [1.1.0] - 2022-05-13
 ### NEW

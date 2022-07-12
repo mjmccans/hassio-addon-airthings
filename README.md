@@ -138,11 +138,6 @@ and with many other Airthings devices (although some testing and tweaks may be n
 * The Airthings devices must be connected to the official app at least once before you can use this add-on.
 * Point in time radon levels are not made available through Bluetooth LE so they cannot be accessed by this add-on, but you can regularly get the 1 day and long term average measurements.
 
-## Add-on Security Rating
-
-This add-on, as of the writing of this documentation, has been given am `Add-on Security Rating` of 3. This is due to the fact that in order to access the bluetooth adapter the add-on requires `Host Network` access and also requires the `NET_ADMIN` privilege in order to allow scanning for devices. If you are uncomfortable with the add-on due to its security rating please review its source code, and please see below if you have any contributions or feedback.
-
-
 ## Inspiration
 
 As is often the case with open source software, this project would not have been possible without the hard work others. In particular, I have heavily leveraged the code developed by Marty Tremblay for his [sensor.airthings_wave](https://github.com/custom-components/sensor.airthings_wave) project for interacting with Airthings devices. If you find this add-on useful please head over to Marty's project and buy him a coffee or a beer. 
