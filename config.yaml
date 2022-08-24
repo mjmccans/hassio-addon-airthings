@@ -18,6 +18,7 @@ options:
   devices:
     - mac: ""
       name: ""
+  radon_units: metric
   refresh_interval: 150
   retry_count: 10
   retry_wait: 3
@@ -28,6 +29,7 @@ schema:
   devices:
     - mac: str?
       name: str?
+  radon_units: list(metric|us)
   refresh_interval: int
   retry_count: int
   retry_wait: int

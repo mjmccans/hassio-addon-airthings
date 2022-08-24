@@ -5,6 +5,7 @@
       "name": "Basement Office"
     }
   ],
+  "radon_units": "metric",
   "refresh_interval": 150,
   "retry_count": 10,
   "retry_wait": 3,

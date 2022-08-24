@@ -51,6 +51,17 @@ SENSORS = {
     "battery": {"name": "Battery", "device_class": "battery", "unit_of_measurement": "%", "icon": None, "state_class": "measurement"}
 }
 
+RADON_UNIT_OF_MEASURE = {
+    "metric": {
+        "label": "Bq/m3",
+        "calc": lambda val : val,
+    },
+    "us":{
+        "label": "pCi/L",
+        "calc": lambda val : val / 37.0,
+    },
+}
+
 class ATSensors:
 
     sensors_list = []
@@ -249,6 +260,7 @@ async def main():
     parser.add_argument('--addon', action='store_true', help='flag used internally if script is being run as an add-on (default is False)')
     parser.add_argument('--config', type=str, default='./options.json', help='location of config file (default is ./options.json)')
     parser.add_argument('--generate_config', action='store_true', help='output to file a suggested config file (default is ./options.json)')
+    parser.add_argument('--radon_units', type=str, default='metric', choices=["metric", "us"], help='radon units you want displayed (default is "metric")')
     args = parser.parse_args()
 
     # Fill in the config values from the command line arguments provided
@@ -265,6 +277,7 @@ async def main():
     CONFIG["addon"] = args.addon
     CONFIG["config"] = args.config
     CONFIG["generate_config"] = args.generate_config
+    CONFIG["radon_units"] = args.radon_units
 
     if CONFIG["generate_config"]:
         if os.path.exists(CONFIG['config']):
@@ -349,7 +362,10 @@ async def main():
                                         if SENSORS[name]["device_class"] != None: config["device_class"] = SENSORS[name]["device_class"]
                                         if SENSORS[name]["icon"] != None: config["icon"] = SENSORS[name]["icon"]
                                         if SENSORS[name]["state_class"] != None: config["state_class"] = SENSORS[name]["state_class"]
-                                        config["unit_of_measurement"] = SENSORS[name]["unit_of_measurement"]
+                                        if name in ["radon_1day_avg", "radon_longterm_avg"]:
+                                            config["unit_of_measurement"] = RADON_UNIT_OF_MEASURE[CONFIG["radon_units"]]["label"]
+                                        else:
+                                            config["unit_of_measurement"] = SENSORS[name]["unit_of_measurement"]
                                         config["uniq_id"] = mac+"_"+name
                                         config["state_topic"] = "airthings/"+mac+"/"+name
                                         config["device"] = device
@@ -377,6 +393,8 @@ async def main():
                                 val = round(val,1)
                             elif name == "battery":
                                 val = max(0, min(100, round( (val-2.4)/(3.2-2.4)*100 ))) # Voltage is between 2.4 and 3.2
+                            elif name in ["radon_1day_avg", "radon_longterm_avg"]:
+                                val = round(RADON_UNIT_OF_MEASURE[CONFIG["radon_units"]]["calc"](val))
                             else:
                                 val = round(val)
                         _LOGGER.info("{} = {}".format("airthings/"+mac+"/"+name, val))
