@@ -1,3 +1,5 @@
+# **WARNING**: This Add-on is no longer needed because support for [Airthings BLE](https://www.home-assistant.io/integrations/airthings_ble/) has been added to Home Assistant Core. This repository is here only for historic purposes in case any of the code is helpful to others. 
+
 # Home Assistant Add-on: Airthings
 
 This Home Assistant Add-on will read sensor values from [Airthings](https://www.airthings.com/) environmental monitoring devices through Bluetooth Low Energy (BLE) and send those values to Home Assistant via the internal MQTT broker. This add-on includes [Home Assistant MQTT discovery](https://www.home-assistant.io/docs/mqtt/discovery/) so your sensors will automatically appear in Home Assistant if everything is set up correctly, but you can turn off that feature if you like. Airthings monitoring products are interesting because they can monitor radon levels, which is a radioactive gas that can be found in homes and is thought to be a cause of lung cancer.
